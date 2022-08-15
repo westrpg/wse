@@ -1,16 +1,16 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "outDir": "./dist/",
+    "target": "es6",
     "module": "commonjs",
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": ["dom", "es2015"],
+    "noResolve": false,
     "noImplicitAny": false,
-    "suppressImplicitAnyIndexErrors": true
+    "sourceMap": true,
+    "preserveConstEnums": true,
+    "lib": [
+      "dom",
+      "es6"
+    ],
+    "rootDir": "src"
   }
 }
