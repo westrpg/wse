@@ -53,21 +53,10 @@ export class Game {
         let guiTexture = GameUtils.createGUI();
         
         // Button to start shark animation
-        GameUtils.createButtonSwim(guiTexture, "Start Swimming",
-            (btn) => {
-                let textControl = btn.children[0] as GUI.TextBlock;
-                this._swim = !this._swim;
-                if (this._swim) {
-                    textControl.text = "Stop Swimming";
-                }
-                else {
-                    this._sharkAnimationTime = 0;
-                    textControl.text = "Start Swimming";
-                }
-            });
+       
 
         // Debug Text for Shark coordinates
-        this._txtCoordinates = GameUtils.createCoordinatesText(guiTexture);
+      //  this._txtCoordinates = GameUtils.createCoordinatesText(guiTexture);
 
         // Physics engine also works
         let gravity = new BABYLON.Vector3(0, -0.9, 0);
@@ -128,20 +117,9 @@ export class Game {
         let vertexData = BABYLON.VertexData.ExtractFromMesh(firstMesh);
         let positions = vertexData.positions;
         let firstVertex = new BABYLON.Vector3(positions[0], positions[1], positions[3]);
-        this.updateCoordinateTexture(firstVertex);
+        
     }
 
-    /**
-     * Prints the given Vector3
-     * @param coordinates 
-     */
-    public updateCoordinateTexture(coordinates: BABYLON.Vector3) {
-        if(!coordinates) {
-            return;
-        }
-        this._txtCoordinates.txtX.text = "X: " + coordinates.x;
-        this._txtCoordinates.txtY.text = "Y: " + coordinates.y;
-        this._txtCoordinates.txtZ.text = "Z: " + coordinates.z;
-    }
+   
 
 }
