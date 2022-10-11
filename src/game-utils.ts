@@ -16,7 +16,7 @@ export class GameUtils {
         groundMaterial.diffuseTexture = new BABYLON.Texture("./assets/texture/ground.jpg", scene);
         //groundMaterial.diffuseTexture.uScale = groundMaterial.diffuseTexture.vScale = 4;
         let ground = BABYLON.Mesh.CreateGround("ground", 512, 512, 32, scene, false);
-        ground.position.y = -1;
+        ground.position.y = 0.5;
         ground.material = groundMaterial;
 
         return ground;
@@ -31,7 +31,7 @@ export class GameUtils {
         let waterMesh = BABYLON.Mesh.CreateGround("waterMesh", 512, 512, 32, scene, false);
         let waterMaterial = GameUtils.createWaterMaterial("water", "./assets/texture/waterbump.png", scene);
         waterMesh.material = waterMaterial;
-        waterMesh.position.y = 4;
+        waterMesh.position.y = 0.9;
 
         return waterMaterial;
     }
@@ -83,53 +83,7 @@ export class GameUtils {
      * 
      * @param guiTexture 
      */
-    public static createCoordinatesText(guiTexture: GUI.AdvancedDynamicTexture): { txtX: GUI.TextBlock, txtY: GUI.TextBlock, txtZ: GUI.TextBlock } {
-        let txtX = new GUI.TextBlock();
-        txtX.height = "20px";
-        txtX.width = "500px";
-        txtX.fontSize = 20;
-        txtX.text = "X: ";
-        txtX.textHorizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
-        txtX.textVerticalAlignment = GUI.Control.VERTICAL_ALIGNMENT_TOP;
-        txtX.horizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
-        txtX.verticalAlignment = GUI.Control.VERTICAL_ALIGNMENT_TOP;
-        txtX.left = 20;
-        txtX.top = 60;
-
-        let txtY = new GUI.TextBlock();
-        txtY.height = "20px";
-        txtY.width = "500px";
-        txtY.fontSize = 20;
-        txtY.text = "Y: ";
-        txtY.textHorizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
-        txtY.textVerticalAlignment = GUI.Control.VERTICAL_ALIGNMENT_TOP;
-        txtY.horizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
-        txtY.verticalAlignment = GUI.Control.VERTICAL_ALIGNMENT_TOP;
-        txtY.left = 20;
-        txtY.top = 90;
-        
-        let txtZ = new GUI.TextBlock();
-        txtZ.height = "20px";
-        txtZ.width = "500px";
-        txtZ.fontSize = 20;
-        txtZ.text = "Z: ";
-        txtZ.textHorizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
-        txtZ.textVerticalAlignment = GUI.Control.VERTICAL_ALIGNMENT_TOP;
-        txtZ.horizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
-        txtZ.verticalAlignment = GUI.Control.VERTICAL_ALIGNMENT_TOP;
-        txtZ.left = 20;
-        txtZ.top = 120;
-        
-        guiTexture.addControl(txtX);
-        guiTexture.addControl(txtY);
-        guiTexture.addControl(txtZ);
-
-        return {
-            txtX: txtX,
-            txtY: txtY,
-            txtZ: txtZ
-        }
-    }
+   
 
     /**
      * Returns Observable of mesh array, which are loaded from a file.
@@ -232,7 +186,7 @@ export class GameUtils {
         water.windForce = -15;
         water.waveHeight = 0;
         water.windDirection = new BABYLON.Vector2(1, 1);
-        water.waterColor = new BABYLON.Color3(0.25, 0.88, 0.82);
+        water.waterColor = new BABYLON.Color3(0, 0.70, 1);
         water.colorBlendFactor = 0.3;
         water.bumpHeight = 0.1;
         water.waveLength = 0.1;
@@ -248,10 +202,10 @@ export class GameUtils {
         // create a mesh object with loaded from file
         let rootMesh = BABYLON.MeshBuilder.CreateBox("rootMesh", {size: 1}, scene);
         rootMesh.isVisible = false;
-        rootMesh.position = new BABYLON.Vector3(0, 0.4, 0);
-        rootMesh.rotation.y = -3 * Math.PI / 4;
+        rootMesh.position = new BABYLON.Vector3(0, 0.5, 0);
+        //rootMesh.rotation.y = -3 * Math.PI / 4;
 
-        return GameUtils.createMeshFromObjFile("mesh/", "mesh.obj", scene, new BABYLON.Vector3(1, 1, 1))
+        return GameUtils.createMeshFromObjFile("mesh/", "WEST_3D_TILEMAP.vox-41.obj", scene, new BABYLON.Vector3(1, 1, 1))
                 .pipe(
                     map(meshes => {
                         meshes.forEach((mesh) => {
@@ -260,6 +214,28 @@ export class GameUtils {
                         return rootMesh;
                     })
                 );
+                
+                
+    }
+
+    public static createground(scene: BABYLON.Scene): Observable<BABYLON.AbstractMesh> {
+        // create a mesh object with loaded from file
+        let rootMesh = BABYLON.MeshBuilder.CreateBox("rootMesh", {size: 1}, scene);
+        rootMesh.isVisible = false;
+        rootMesh.position = new BABYLON.Vector3(0, 0.5, 0);
+       // rootMesh.rotation.y = -3 * Math.PI / 4;
+      
+        return GameUtils.createMeshFromObjFile("mesh/", "WEST_3D_TILEMAP.vox-15.obj", scene, new BABYLON.Vector3(1, 1, 1))
+                .pipe(
+                    map(meshes => {
+                        meshes.forEach((mesh) => {
+                            mesh.parent = rootMesh;
+                        });
+                        return rootMesh;
+                    })
+                );
+                
+                
     }
 
 }
