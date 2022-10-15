@@ -198,42 +198,29 @@ export class GameUtils {
      * Loads a shark model from .obj file and adds it scene.
      * @param scene
      */
-    public static createShark(scene: BABYLON.Scene): Observable<BABYLON.AbstractMesh> {
+
+    public static createMap(model: string, posX: number, posZ: number, rotation:number, scene: BABYLON.Scene): Observable<BABYLON.AbstractMesh> {
         // create a mesh object with loaded from file
         let rootMesh = BABYLON.MeshBuilder.CreateBox("rootMesh", {size: 1}, scene);
         rootMesh.isVisible = false;
-        rootMesh.position = new BABYLON.Vector3(0, 0.5, 0);
-        //rootMesh.rotation.y = -3 * Math.PI / 4;
+        rootMesh.position = new BABYLON.Vector3(posX, 0.5, posZ);
+       rootMesh.rotation.y = rotation;
+      //represented in radians, because f*** you, thats why
 
-        return GameUtils.createMeshFromObjFile("mesh/", "WEST_3D_TILEMAP.vox-41.obj", scene, new BABYLON.Vector3(1, 1, 1))
-                .pipe(
-                    map(meshes => {
-                        meshes.forEach((mesh) => {
-                            mesh.parent = rootMesh;
-                        });
-                        return rootMesh;
-                    })
-                );
-                
-                
-    }
 
-    public static createground(scene: BABYLON.Scene): Observable<BABYLON.AbstractMesh> {
-        // create a mesh object with loaded from file
-        let rootMesh = BABYLON.MeshBuilder.CreateBox("rootMesh", {size: 1}, scene);
-        rootMesh.isVisible = false;
-        rootMesh.position = new BABYLON.Vector3(0, 0.5, 0);
-       // rootMesh.rotation.y = -3 * Math.PI / 4;
-      
-        return GameUtils.createMeshFromObjFile("mesh/", "WEST_3D_TILEMAP.vox-15.obj", scene, new BABYLON.Vector3(1, 1, 1))
-                .pipe(
-                    map(meshes => {
-                        meshes.forEach((mesh) => {
-                            mesh.parent = rootMesh;
-                        });
-                        return rootMesh;
-                    })
-                );
+function getTile(model){
+    return GameUtils.createMeshFromObjFile("mesh/", model, scene, new BABYLON.Vector3(1, 1, 1))
+    .pipe(
+        map(meshes => {
+            meshes.forEach((mesh) => {
+                mesh.parent = rootMesh;
+            });
+            return rootMesh;
+        })
+    );
+}
+
+       return getTile(model);
                 
                 
     }

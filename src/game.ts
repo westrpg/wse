@@ -38,16 +38,44 @@ export class Game {
         waterMaterial.addToRenderList(skybox);
         waterMaterial.addToRenderList(ground);
         // create a shark mesh from a .obj file
-        GameUtils.createShark(this._scene)
-            .subscribe(sharkMesh => {
-                this._sharkMesh = sharkMesh;
-                this._sharkMesh.getChildren().forEach(
+       
+            GameUtils.createMap("WEST_3D_TILEMAP.vox-15.obj",0,0,0,this._scene)
+            .subscribe(groundMesh => {
+                this._groundMesh = groundMesh;
+                this._groundMesh.getChildren().forEach(
                     mesh => {
                         waterMaterial.addToRenderList(mesh);
                     }
                 );
             });
-            GameUtils.createground(this._scene)
+            GameUtils.createMap("WEST_3D_TILEMAP.vox-14.obj",0,0,0,this._scene)
+            .subscribe(groundMesh => {
+                this._groundMesh = groundMesh;
+                this._groundMesh.getChildren().forEach(
+                    mesh => {
+                        waterMaterial.addToRenderList(mesh);
+                    }
+                );
+            });
+            GameUtils.createMap("WEST_3D_TILEMAP.vox-16.obj",0,0,0,this._scene)
+            .subscribe(groundMesh => {
+                this._groundMesh = groundMesh;
+                this._groundMesh.getChildren().forEach(
+                    mesh => {
+                        waterMaterial.addToRenderList(mesh);
+                    }
+                );
+            });
+            GameUtils.createMap("WEST_3D_TILEMAP.vox-17.obj",0,0,0 / 4,this._scene)
+            .subscribe(groundMesh => {
+                this._groundMesh = groundMesh;
+                this._groundMesh.getChildren().forEach(
+                    mesh => {
+                        waterMaterial.addToRenderList(mesh);
+                    }
+                );
+            });
+            GameUtils.createMap("WEST_3D_TILEMAP.vox-18.obj",0,0,0,this._scene)
             .subscribe(groundMesh => {
                 this._groundMesh = groundMesh;
                 this._groundMesh.getChildren().forEach(
