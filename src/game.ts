@@ -38,8 +38,8 @@ export class Game {
         waterMaterial.addToRenderList(skybox);
         waterMaterial.addToRenderList(ground);
         // create a shark mesh from a .obj file
-       //4707 meshes
-           for (let i = 0; i < 4707; i++) {
+       //63 meshes
+           for (let i = 0; i < 63; i++) {
           console.log("Loading models:"+"wse_environment.vox-"+i+".obj");
          GameUtils.createMap("wse_environment.vox-"+i+".obj",0,0,0,this._scene)
           .subscribe(groundMesh => {
