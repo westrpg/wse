@@ -38,52 +38,22 @@ export class Game {
         waterMaterial.addToRenderList(skybox);
         waterMaterial.addToRenderList(ground);
         // create a shark mesh from a .obj file
-       
-            GameUtils.createMap("WEST_3D_TILEMAP.vox-15.obj",0,0,0,this._scene)
-            .subscribe(groundMesh => {
-                this._groundMesh = groundMesh;
-                this._groundMesh.getChildren().forEach(
-                    mesh => {
-                        waterMaterial.addToRenderList(mesh);
-                    }
-                );
-            });
-            GameUtils.createMap("WEST_3D_TILEMAP.vox-14.obj",0,0,0,this._scene)
-            .subscribe(groundMesh => {
-                this._groundMesh = groundMesh;
-                this._groundMesh.getChildren().forEach(
-                    mesh => {
-                        waterMaterial.addToRenderList(mesh);
-                    }
-                );
-            });
-            GameUtils.createMap("WEST_3D_TILEMAP.vox-16.obj",0,0,0,this._scene)
-            .subscribe(groundMesh => {
-                this._groundMesh = groundMesh;
-                this._groundMesh.getChildren().forEach(
-                    mesh => {
-                        waterMaterial.addToRenderList(mesh);
-                    }
-                );
-            });
-            GameUtils.createMap("WEST_3D_TILEMAP.vox-17.obj",0,0,0 / 4,this._scene)
-            .subscribe(groundMesh => {
-                this._groundMesh = groundMesh;
-                this._groundMesh.getChildren().forEach(
-                    mesh => {
-                        waterMaterial.addToRenderList(mesh);
-                    }
-                );
-            });
-            GameUtils.createMap("WEST_3D_TILEMAP.vox-18.obj",0,0,0,this._scene)
-            .subscribe(groundMesh => {
-                this._groundMesh = groundMesh;
-                this._groundMesh.getChildren().forEach(
-                    mesh => {
-                        waterMaterial.addToRenderList(mesh);
-                    }
-                );
-            });
+       //4707 meshes
+           for (let i = 0; i < 4707; i++) {
+          console.log("Loading models:"+"wse_environment.vox-"+i+".obj");
+         GameUtils.createMap("wse_environment.vox-"+i+".obj",0,0,0,this._scene)
+          .subscribe(groundMesh => {
+              this._groundMesh = groundMesh;
+              this._groundMesh.getChildren().forEach(
+                  mesh => {
+                      waterMaterial.addToRenderList(mesh);
+                  }
+              );
+          });
+        }
+           
+           
+           
         // finally the new ui
         let guiTexture = GameUtils.createGUI();
         
