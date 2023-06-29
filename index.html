@@ -242,7 +242,7 @@
 							case '↴':
 								return ['_road_turn', 2];
 							case '↳':
-								return ['_road_turn', 1];
+								return ['_road_turn', 4];
 							case '↱':
 								return ['_road_turn', 3];
 
@@ -293,10 +293,11 @@
 					//console.log(mapHeight);
 					var height = mapHeight.toString();
 					//console.log(height);
-					var modelName = getModel(value.split("")[0]);
-					var biome = value.split("")[1];
+					var modelName = parseChunkName(value)
+					
 
-					loader.load("tilemap/" + parseChunkName[0] + ".vox", function (chunks) {
+//console.log(parseChunkName[0]);
+					loader.load("tilemap/" + modelName[0] + ".vox", function (chunks) {
 						console.log(height);
 						for (let i = 0; i < chunks.length; i++) {
 							//console.log(height);
@@ -308,19 +309,19 @@
 							mesh.scale.setScalar(0.0015);
 							mesh.position.set((index * 0.0480), 0, (height * 0.0480));
 							//console.log(mapHeight);
-							if (parseChunkName[1] == 2) {
+							if (modelName[1] == 2) {
 								mesh.rotation.y = Math.PI / 2;
 								//translate the mesh slighly up from itself
 								mesh.translateX(-0.0015);
 								mesh.translateZ(-0.0015);
 							}
-							else if (parseChunkName[1] == 3) {
+							else if (modelName[1] == 3) {
 								mesh.rotation.y = Math.PI;
 								//mesh.translateX(-0.0015);
 								mesh.translateZ(-0.0030);
 								//mesh.translateY(0.003);
 							}
-							else if (parseChunkName[1] == 4) {
+							else if (modelName[1] == 4) {
 								mesh.rotation.y = 1.5 * Math.PI;
 								mesh.translateZ(-0.0015);
 								mesh.translateX(0.0015);
