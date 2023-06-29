@@ -10,7 +10,7 @@
 
 <body>
 	<div id="info">
-		
+
 	</div>
 
 	<!-- Import maps polyfill -->
@@ -195,107 +195,99 @@
 						switch (mapData) {
 							case '◻︎':
 								return ['empty', 1];
-							case '⌌f':
-								return ['forest_corner_in', 4];
-							case '⌍f':
-								return ['forest_corner_in', 3];
-							case '⌎f':
-								return ['forest_corner_in', 1];
-							case '⌏f':
-								return ['forest_corner_in', 2];
+							case '⌌':
+								return ['_corner_in', 4];
+							case '⌍':
+								return ['_corner_in', 3];
+							case '⌎':
+								return ['_corner_in', 1];
+							case '⌏':
+								return ['_corner_in', 2];
 
 
-								case '⌌d':
-								return ['desert_corner_in', 4];
-							case '⌍d':
-								return ['desert_corner_in', 3];
-							case '⌎d':
-								return ['desert_corner_in', 1];
-							case '⌏d':
-								return ['desert_corner_in', 2];
 
 
-							case '⌜f':
-								return ['forest_corner_out', 4];
-							case '⌝f':
-								return ['forest_corner_out', 3];
-							case '⌞f':
-								return ['forest_corner_out', 1];
-							case '⌟f':
-								return ['forest_corner_out', 2];
+
+							case '⌜':
+								return ['_corner_out', 4];
+							case '⌝':
+								return ['_corner_out', 3];
+							case '⌞':
+								return ['_corner_out', 1];
+							case '⌟':
+								return ['_corner_out', 2];
 
 
-								case '⌜d':
-								return ['desert_corner_out', 4];
-							case '⌝d':
-								return ['desert_corner_out', 3];
-							case '⌞d':
-								return ['desert_corner_out', 1];
-							case '⌟d':
-								return ['desert_corner_out', 2];
-
-							case '↑f':
-								return ['forest_edge', 3];
-							case '↓f':
-								return ['forest_edge', 1];
-							case '←f':
-								return ['forest_edge', 4];
-							case '→f':
-								return ['forest_edge', 2];
 
 
-								case '↑d':
-								return ['desert_edge', 3];
-							case '↓d':
-								return ['desert_edge', 1];
-							case '←d':
-								return ['desert_edge', 4];
-							case '→d':
-								return ['desert_edge', 2];
+							case '↑':
+								return ['_edge', 3];
+							case '↓':
+								return ['_edge', 1];
+							case '←':
+								return ['_edge', 4];
+							case '→':
+								return ['_edge', 2];
 
-							case '+f':
-								return ['forest_road_cross', 1];
 
-								case '+d':
-								return ['desert_road_cross', 1];
 
-							case '↲f':
-								return ['forest_road_turn', 1];
-							case '↴f':
-								return ['forest_road_turn', 2];
-							case '↳f':
-								return ['forest_road_turn', 1];
-							case '↱f':
-								return ['forest_road_turn', 3];
 
-								case '↲d':
-								return ['desert_road_turn', 1];
-							case '↴d':
-								return ['desert_road_turn', 2];
-							case '↳d':
-								return ['desert_road_turn', 4];
-							case '↱d':
-								return ['desert_road_turn', 3];
+							case '+':
+								return ['_road_cross', 1];
 
-							case '|f':
-								return ['forest_road', 4];
-							case '=f':
-								return ['forest_road', 1];
 
-								case '|d':
-								return ['desert_road', 4];
-							case '=d':
-								return ['desert_road', 1];
 
-							case 'f':
-								return ['forest', 1];
-							case 'd':
-								return ['desert', 1];
+							case '↲':
+								return ['_road_turn', 1];
+							case '↴':
+								return ['_road_turn', 2];
+							case '↳':
+								return ['_road_turn', 1];
+							case '↱':
+								return ['_road_turn', 3];
+
+
+
+							case '|':
+								return ['_road', 4];
+							case '=':
+								return ['_road', 1];
+
+
+
+
 
 							default:
 								return ['empty', 1];
 						}
 
+					}
+					//name looks like '↑f'
+					function parseChunkName(name) {
+						switch (name.split("")[0]) {
+							case 'f':
+								return ['forest', 1];
+								break;
+							case 'd':
+								return ['desert', 1];
+								break;
+						}
+
+						function assignBiome(input) {
+							switch (input.split("")[1]) {
+								case 'f':
+									return 'forest';
+								case 'd':
+									return 'desert';
+							}
+
+
+
+						}
+
+
+						//returns [forest_edge, rotation]
+						return [assignBiome(name) + getModel(name.split("")[0])[0], getModel(name.split("")[0])[1]];
 					}
 
 					//console.log(mapHeight);
@@ -304,7 +296,7 @@
 					var modelName = getModel(value.split("")[0]);
 					var biome = value.split("")[1];
 
-					loader.load("tilemap/" + modelName[0] + ".vox", function (chunks) {
+					loader.load("tilemap/" + parseChunkName[0] + ".vox", function (chunks) {
 						console.log(height);
 						for (let i = 0; i < chunks.length; i++) {
 							//console.log(height);
@@ -315,20 +307,20 @@
 							const mesh = new VOXMesh(chunk);
 							mesh.scale.setScalar(0.0015);
 							mesh.position.set((index * 0.0480), 0, (height * 0.0480));
-//console.log(mapHeight);
-							if (modelName[1] == 2) {
+							//console.log(mapHeight);
+							if (parseChunkName[1] == 2) {
 								mesh.rotation.y = Math.PI / 2;
 								//translate the mesh slighly up from itself
 								mesh.translateX(-0.0015);
 								mesh.translateZ(-0.0015);
 							}
-							else if (modelName[1] == 3) {
+							else if (parseChunkName[1] == 3) {
 								mesh.rotation.y = Math.PI;
 								//mesh.translateX(-0.0015);
 								mesh.translateZ(-0.0030);
 								//mesh.translateY(0.003);
 							}
-							else if (modelName[1] == 4) {
+							else if (parseChunkName[1] == 4) {
 								mesh.rotation.y = 1.5 * Math.PI;
 								mesh.translateZ(-0.0015);
 								mesh.translateX(0.0015);
